@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Grid from "./pages/HooksGrid";
+import Detail from "./pages/Detail";
+import Error from "./pages/Error";
 
-function App() {
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+
+import { hooksData } from "./data/hooksData";
+import "./App.css";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                React Hooks
+              </Typography>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Routes>
+        <Route path="/" element={<Grid hooksData={hooksData} />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
